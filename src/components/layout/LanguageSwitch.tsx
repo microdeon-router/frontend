@@ -61,7 +61,7 @@ export default function LanguageSwitch() {
         <ul
           role="listbox"
           aria-label={m.lang.label}
-          className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-lg border border-line bg-panel py-1 shadow-2xl"
+          className="absolute end-0 z-50 mt-2 w-52 overflow-hidden rounded-lg border border-line bg-panel py-1 shadow-2xl"
         >
           {locales.map((item) => (
             <li key={item.code} role="option" aria-selected={item.code === locale}>

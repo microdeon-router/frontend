@@ -5,8 +5,10 @@ export type Messages = {
     docs: string;
     dashboard: string;
     signin: string;
+    signOut: string;
     signup: string;
     getKey: string;
+    goToConsole: string;
     search: string;
     close: string;
   };
@@ -18,13 +20,12 @@ export type Messages = {
     lead: string;
     cta: string;
     browse: string;
-    note: string;
     from: string;
     via: string;
     to: string;
   };
   stats: { items: { value: string; label: string }[] };
-  code: { title: string; copy: string; copied: string; footnote: string; moreAgents: string; yourAgent: string };
+  code: { copy: string; copied: string; moreAgents: string; yourAgent: string };
   agents: { kicker: string; title: string; lead: string };
   tools: { kicker: string; title: string; lead: string };
   integrate: { kicker: string; title: string; lead: string; cta: string };
@@ -139,8 +140,6 @@ export type Messages = {
   auth: {
     signinTitle: string;
     signupTitle: string;
-    signinLead: string;
-    signupLead: string;
     continue: string;
     orEmail: string;
     email: string;
@@ -148,6 +147,8 @@ export type Messages = {
     name: string;
     submitIn: string;
     submitUp: string;
+    pending: string;
+    failed: string;
     noAccount: string;
     hasAccount: string;
     note: string;

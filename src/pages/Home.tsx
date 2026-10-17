@@ -61,7 +61,6 @@ export default function Home() {
               {m.hero.browse}
             </Button>
           </div>
-          <p className="mt-6 max-w-xl text-[12.5px] leading-relaxed text-faint">{m.hero.note}</p>
         </div>
       </section>
 
@@ -77,9 +76,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-[760px] px-4 py-8 sm:px-6">
-        <h2 className="mb-4 text-center text-[15px] text-mute">{m.code.title}</h2>
         <CodeBlock />
-        <p className="mt-4 text-center font-mono text-[12px] leading-relaxed text-faint">{m.code.footnote}</p>
       </section>
 
       <section className="mx-auto max-w-[1120px] px-4 py-20 sm:px-6">

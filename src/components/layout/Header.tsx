@@ -3,11 +3,13 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Wordmark } from "@/components/brand/Mark";
 import Button from "@/components/ui/Button";
 import { localePath, useI18n } from "@/i18n";
+import { authClient } from "@/lib/auth-client";
 import CommandSearch from "./CommandSearch";
 import LanguageSwitch from "./LanguageSwitch";
 
 export default function Header() {
   const { locale, m } = useI18n();
+  const { data: session } = authClient.useSession();
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,11 +71,24 @@ export default function Header() {
 
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <LanguageSwitch />
-          <Button variant="ghost" to={localePath(locale, "/signin")} className="hidden md:inline-flex">
-            {m.nav.signin}
-          </Button>
-          <Button to={localePath(locale, "/signup")} className="whitespace-nowrap px-3 text-[13px] sm:px-4 sm:text-[13.5px]">
-            {m.nav.getKey}
+          {session ? (
+            <button
+              type="button"
+              className="hidden text-[13.5px] text-[#d0d0d0] hover:text-white md:inline"
+              onClick={() => void authClient.signOut()}
+            >
+              {m.nav.signOut}
+            </button>
+          ) : (
+            <Button variant="ghost" to={localePath(locale, "/signin")} className="hidden md:inline-flex">
+              {m.nav.signin}
+            </Button>
+          )}
+          <Button
+            to={localePath(locale, session ? "/dashboard" : "/signup")}
+            className="whitespace-nowrap px-3 text-[13px] sm:px-4 sm:text-[13.5px]"
+          >
+            {session ? m.nav.goToConsole : m.nav.getKey}
           </Button>
           <button
             type="button"
@@ -101,9 +116,19 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link to={localePath(locale, "/signin")} className="rounded-md px-2 py-2.5 text-sm text-[#d0d0d0] sm:hidden">
-              {m.nav.signin}
-            </Link>
+            {session ? (
+              <button
+                type="button"
+                className="rounded-md px-2 py-2.5 text-left text-sm text-[#d0d0d0] sm:hidden"
+                onClick={() => void authClient.signOut()}
+              >
+                {m.nav.signOut}
+              </button>
+            ) : (
+              <Link to={localePath(locale, "/signin")} className="rounded-md px-2 py-2.5 text-sm text-[#d0d0d0] sm:hidden">
+                {m.nav.signin}
+              </Link>
+            )}
           </nav>
         </div>
       ) : null}

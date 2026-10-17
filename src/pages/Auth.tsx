@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { GitHubIcon, GoogleIcon, MicrosoftIcon } from "@/components/brand/AuthProviderIcon";
 import { Wordmark } from "@/components/brand/Mark";
-import VendorMark from "@/components/brand/VendorMark";
 import Button from "@/components/ui/Button";
-import { authProviders } from "@/data/integrations";
 import { localePath, useI18n } from "@/i18n";
+import { authClient } from "@/lib/auth-client";
 
 function PersonIcon() {
   return (
@@ -15,15 +15,62 @@ function PersonIcon() {
   );
 }
 
+const providers = [
+  { slug: "github", name: "GitHub", Icon: GitHubIcon },
+  { slug: "google", name: "Google", Icon: GoogleIcon },
+  { slug: "microsoft", name: "Microsoft", Icon: MicrosoftIcon },
+] as const;
+
+type SocialProvider = (typeof providers)[number]["slug"];
+
 export default function Auth({ mode }: { mode: "signin" | "signup" }) {
   const { locale, m, t } = useI18n();
-  const [note, setNote] = useState(false);
+  const navigate = useNavigate();
+  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
   const signup = mode === "signup";
+  const next = localePath(locale, "/dashboard");
 
-  const submit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setNote(true);
+  const fail = (message?: string) => {
+    setError(message || m.auth.failed);
+    setPending(false);
   };
+
+  const social = async (provider: SocialProvider) => {
+    setError(null);
+    setPending(true);
+    const { error: authError } = await authClient.signIn.social({
+      provider,
+      callbackURL: next,
+    });
+    if (authError) fail(authError.message);
+  };
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    setPending(true);
+    const form = new FormData(event.currentTarget);
+    const email = String(form.get("email") ?? "");
+    const password = String(form.get("password") ?? "");
+    const name = String(form.get("name") ?? "");
+    const { error: authError } = signup
+      ? await authClient.signUp.email({ email, password, name })
+      : await authClient.signIn.email({ email, password });
+    if (authError) {
+      fail(authError.message);
+      return;
+    }
+    const session = await authClient.getSession();
+    if (!session.data) {
+      fail();
+      return;
+    }
+    navigate(next);
+  };
+
+  if (!sessionPending && session) return <Navigate to={next} replace />;
 
   return (
     <div className="mx-auto flex max-w-[420px] flex-col px-4 py-16 sm:px-6">
@@ -31,19 +78,16 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
       <h1 className="mt-8 text-center text-[1.7rem] font-semibold tracking-[-0.03em] text-white">
         {signup ? m.auth.signupTitle : m.auth.signinTitle}
       </h1>
-      <p className="mt-3 text-center text-[14px] leading-relaxed text-mute">
-        {signup ? m.auth.signupLead : m.auth.signinLead}
-      </p>
-
       <div className="mt-8 space-y-2">
-        {authProviders.map((item) => (
+        {providers.map((item) => (
           <button
             key={item.slug}
             type="button"
-            onClick={() => setNote(true)}
-            className="flex h-11 w-full items-center gap-3 rounded-lg border border-line bg-panel px-3 text-left text-[14px] text-[#e0e0e0] hover:border-[#333]"
+            disabled={pending}
+            onClick={() => void social(item.slug)}
+            className="flex h-11 w-full items-center gap-3 rounded-lg border border-line bg-panel px-3 text-left text-[14px] text-[#e0e0e0] hover:border-[#333] disabled:opacity-60"
           >
-            <VendorMark src={item.src} name={item.name} className="h-6 w-6" />
+            <item.Icon className="h-5 w-5 shrink-0 text-white" />
             {t((msg) => msg.auth.continue, { name: item.name })}
           </button>
         ))}
@@ -57,6 +101,7 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
             <span className="mb-1.5 block text-[12px] text-mute">{m.auth.name}</span>
             <input
               name="name"
+              required
               autoComplete="name"
               className="h-11 w-full rounded-lg border border-line bg-panel px-3 text-[14px] text-white outline-none focus:border-[#444]"
             />
@@ -83,16 +128,17 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
             type="password"
             name="password"
             required
+            minLength={8}
             autoComplete={signup ? "new-password" : "current-password"}
             className="h-11 w-full rounded-lg border border-line bg-panel px-3 text-[14px] text-white outline-none focus:border-[#444]"
           />
         </label>
-        <Button type="submit" className="h-11 w-full rounded-lg">
-          {signup ? m.auth.submitUp : m.auth.submitIn}
+        <Button type="submit" disabled={pending} className="h-11 w-full rounded-lg disabled:opacity-60">
+          {pending ? m.auth.pending : signup ? m.auth.submitUp : m.auth.submitIn}
         </Button>
       </form>
 
-      {note ? <p className="mt-4 text-center text-[13px] text-mute">{m.auth.note}</p> : null}
+      {error ? <p className="mt-4 text-center text-[13px] text-signal">{error}</p> : null}
 
       <p className="mt-8 text-center text-[13.5px] text-mute">
         {signup ? m.auth.hasAccount : m.auth.noAccount}{" "}

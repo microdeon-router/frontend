@@ -9,6 +9,7 @@ function DocumentLang() {
   const { locale, m } = useI18n();
   useEffect(() => {
     document.documentElement.lang = locale;
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
     document.title = m.meta.title;
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", m.meta.description);
