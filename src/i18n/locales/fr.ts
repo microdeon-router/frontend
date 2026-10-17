@@ -32,9 +32,9 @@ export const fr: Messages = {
   stats: {
     items: [
       { value: "90B+", label: "plus gros modèles cyber, hébergés" },
-      { value: "OpenAI", label: "API drop-in, une clé" },
-      { value: "SOC", label: "IDA, Burp, Caido, Nmap sur la route" },
-      { value: "Agents", label: "omp, Cursor, Claude Code, Goose, Hermes" },
+      { value: "100%", label: "catalogue exclusivement cyber" },
+      { value: "1 API", label: "drop-in OpenAI, une clé, tout le catalogue" },
+      { value: "OffSec", label: "pentest, reverse, SOC, forensics" },
     ],
   },
   code: {
