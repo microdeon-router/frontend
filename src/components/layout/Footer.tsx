@@ -49,7 +49,7 @@ export default function Footer() {
         ])}
         {col(m.footer.developers, [
           { to: localePath(locale, "/docs"), label: "OpenAI SDK" },
-          { to: localePath(locale, "/docs#agents"), label: "Cursor / Claude Code" },
+          { to: localePath(locale, "/docs#agents"), label: "omp / Cursor / Claude Code" },
           { to: localePath(locale, "/models/cyberstrike-35b"), label: "cyberstrike-35b" },
         ])}
         {col(m.footer.company, [

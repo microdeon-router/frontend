@@ -34,7 +34,7 @@ export const de: Messages = {
       { value: "90B+", label: "größte Cyber-Modelle, gehostet" },
       { value: "OpenAI", label: "Drop-in-kompatible API" },
       { value: "SOC", label: "IDA, Burp, Caido, Nmap auf der Route" },
-      { value: "Agents", label: "Cursor, Claude Code, Goose, Hermes" },
+      { value: "Agents", label: "omp, Cursor, Claude Code, Goose, Hermes" },
     ],
   },
   code: {
@@ -47,7 +47,7 @@ export const de: Messages = {
   },
   agents: {
     kicker: "Agenten",
-    title: "Cursor, Claude Code, Goose, Hermes — und der nächste.",
+    title: "omp, Cursor, Claude Code, Goose, Hermes — und der nächste.",
     lead: "Jeder OpenAI-Agent zeigt auf Microdeon: Base-URL, Key, Modell-ID. Die Liste ist ein Katalog, kein geschlossener Club.",
   },
   tools: {
@@ -138,7 +138,7 @@ export const de: Messages = {
     keysBody: "GET/POST /v1/api-keys, DELETE /v1/api-keys/{id}.",
     errors: "Fehler",
     headers: "Header",
-    agents: "Agenten (Cursor, Claude Code, …)",
+    agents: "Agenten (omp, Cursor, Claude Code, …)",
     agentsBody: "OPENAI_BASE_URL auf https://api.microdeon.fr/v1, OPENAI_API_KEY auf einen mdn_-Key.",
     streaming: "SSE-Streaming wird abgelehnt. Client-Timeout > Cold Start (bis 300 s).",
     billing: "Abrechnung",

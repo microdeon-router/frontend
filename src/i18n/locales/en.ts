@@ -34,7 +34,7 @@ export const en: Messages = {
       { value: "90B+", label: "largest cyber models, hosted" },
       { value: "OpenAI", label: "drop-in compatible API" },
       { value: "SOC", label: "IDA, Burp, Caido, Nmap on the route" },
-      { value: "Agents", label: "Cursor, Claude Code, Goose, Hermes" },
+      { value: "Agents", label: "omp, Cursor, Claude Code, Goose, Hermes" },
     ],
   },
   code: {
@@ -47,7 +47,7 @@ export const en: Messages = {
   },
   agents: {
     kicker: "Agents",
-    title: "Cursor, Claude Code, Goose, Hermes — and the next one.",
+    title: "omp, Cursor, Claude Code, Goose, Hermes — and the next one.",
     lead: "Any agent that speaks OpenAI can target Microdeon: base URL, key, model ID. The list is a catalogue, not a closed set.",
   },
   tools: {
@@ -156,7 +156,7 @@ export const en: Messages = {
     keysBody: "GET/POST /v1/api-keys, DELETE /v1/api-keys/{id}. A child key cannot widen scopes or models.",
     errors: "Errors",
     headers: "Headers",
-    agents: "Agents (Cursor, Claude Code, …)",
+    agents: "Agents (omp, Cursor, Claude Code, …)",
     agentsBody: "Set OPENAI_BASE_URL to https://api.microdeon.fr/v1 and OPENAI_API_KEY to an mdn_ key. The model is a catalog ID.",
     streaming: "SSE streaming is rejected (streaming_unsupported). Client timeout must exceed cold start (up to 300 s).",
     billing: "Billing",

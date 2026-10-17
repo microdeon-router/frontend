@@ -34,7 +34,7 @@ export const es: Messages = {
       { value: "90B+", label: "modelos cyber más grandes, alojados" },
       { value: "OpenAI", label: "API drop-in, una clave" },
       { value: "SOC", label: "IDA, Burp, Caido, Nmap en la ruta" },
-      { value: "Agents", label: "Cursor, Claude Code, Goose, Hermes" },
+      { value: "Agents", label: "omp, Cursor, Claude Code, Goose, Hermes" },
     ],
   },
   code: {
@@ -47,7 +47,7 @@ export const es: Messages = {
   },
   agents: {
     kicker: "Agentes",
-    title: "Cursor, Claude Code, Goose, Hermes — y el siguiente.",
+    title: "omp, Cursor, Claude Code, Goose, Hermes — y el siguiente.",
     lead: "Cualquier agente que hable OpenAI apunta a Microdeon: URL, clave, ID. La lista es un catálogo, no un club cerrado.",
   },
   tools: {
@@ -138,7 +138,7 @@ export const es: Messages = {
     keysBody: "GET/POST /v1/api-keys, DELETE /v1/api-keys/{id}.",
     errors: "Errores",
     headers: "Cabeceras",
-    agents: "Agentes (Cursor, Claude Code, …)",
+    agents: "Agentes (omp, Cursor, Claude Code, …)",
     agentsBody: "OPENAI_BASE_URL=https://api.microdeon.fr/v1 y OPENAI_API_KEY=mdn_… El modelo es un ID del catálogo.",
     streaming: "El streaming SSE se rechaza. Timeout de cliente > arranque en frío (hasta 300 s).",
     billing: "Facturación",

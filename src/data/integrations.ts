@@ -7,6 +7,7 @@ export type Integration = {
 };
 
 export const agents: Integration[] = [
+  { slug: "omp", name: "omp", kind: "agent", src: "/brand/vendors/omp/mark.png", href: "https://omp.sh" },
   { slug: "cursor", name: "Cursor", kind: "agent", src: "/brand/vendors/cursor/mark.png" },
   { slug: "claude-code", name: "Claude Code", kind: "agent", src: "/brand/vendors/claude-code/mark-mascot.jpg" },
   { slug: "goose", name: "Goose", kind: "agent", src: "/brand/vendors/goose/mark.png" },

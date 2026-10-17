@@ -27,12 +27,21 @@ function fromAgent(id: string, file: string, extra = ""): AgentSetup {
 }
 
 export const agentSetups: AgentSetup[] = [
+  fromAgent(
+    "omp",
+    "omp.sh · env",
+    `
+# https://omp.sh — OpenAI-compatible provider
+export OPENAI_BASE_URL=https://api.microdeon.fr/v1
+export OPENAI_API_KEY=mdn_<id>_<secret>
+`,
+  ),
   fromAgent("cursor", "Cursor → Settings → Models"),
   fromAgent(
     "claude-code",
     "Claude Code · env",
     `
-# claude / Cursor CLI that speak OpenAI
+# Claude Code — OpenAI-compatible env
 export OPENAI_BASE_URL=https://api.microdeon.fr/v1
 export OPENAI_API_KEY=mdn_<id>_<secret>
 `,

@@ -34,7 +34,7 @@ export const fr: Messages = {
       { value: "90B+", label: "plus gros modèles cyber, hébergés" },
       { value: "OpenAI", label: "API drop-in, une clé" },
       { value: "SOC", label: "IDA, Burp, Caido, Nmap sur la route" },
-      { value: "Agents", label: "Cursor, Claude Code, Goose, Hermes" },
+      { value: "Agents", label: "omp, Cursor, Claude Code, Goose, Hermes" },
     ],
   },
   code: {
@@ -47,7 +47,7 @@ export const fr: Messages = {
   },
   agents: {
     kicker: "Agents",
-    title: "Cursor, Claude Code, Goose, Hermes — et le suivant.",
+    title: "omp, Cursor, Claude Code, Goose, Hermes — et le suivant.",
     lead: "Tout agent qui parle OpenAI peut viser Microdeon : base URL, clé, identifiant de modèle. La liste est un catalogue, pas un club fermé.",
   },
   tools: {
@@ -156,7 +156,7 @@ export const fr: Messages = {
     keysBody: "GET/POST /v1/api-keys, DELETE /v1/api-keys/{id}. Une clé fille ne peut pas élargir les scopes ni les modèles.",
     errors: "Erreurs",
     headers: "En-têtes",
-    agents: "Agents (Cursor, Claude Code, …)",
+    agents: "Agents (omp, Cursor, Claude Code, …)",
     agentsBody: "Pointez OPENAI_BASE_URL vers https://api.microdeon.fr/v1 et OPENAI_API_KEY vers une clé mdn_. Le modèle est un identifiant du catalogue.",
     streaming: "Le streaming SSE est refusé (streaming_unsupported). Timeout client > cold start (jusqu’à 300 s).",
     billing: "Facturation",

@@ -14,6 +14,7 @@ web/public/brand/
 │   ├── caido/
 │   ├── claude-code/
 │   ├── cursor/
+│   ├── omp/
 │   ├── elasticsearch/
 │   ├── github/
 │   ├── google/
@@ -72,8 +73,9 @@ Chemins publics :
 | `orca-router` | `vendors/orca-router/mark.jpg` | mark | clair | provider / modèle | Orque 3D bleue (OrcaRouter) |
 | `claude-code` | `vendors/claude-code/wordmark.jpg` | wordmark | sombre | badge produit | Texte « CLAUDE CODE » terracotta |
 | `claude-code` | `vendors/claude-code/mark-mascot.jpg` | mark | sticker | mascotte | Pixel art orange (mascotte Claude Code) |
-| `cursor` | `vendors/cursor/mark.png` | mark | sombre | icône éditeur | Symbole π dégradé rose→cyan (fichier source `ompicon…`) |
-| `cursor` | `vendors/cursor/logo-with-text.jpg` | logo | transparent / clair | badge éditeur | Hexagone facettes + wordmark « CURSOR » |
+| `omp` | `vendors/omp/mark.png` | mark | sombre | icône agent omp.sh | π dégradé rose→cyan (fichier source `ompicon…`) |
+| `cursor` | `vendors/cursor/mark.png` | mark | sombre | icône éditeur Cursor | Cube facettes (marque Cursor) |
+| `cursor` | `vendors/cursor/logo-with-text.jpg` | logo | transparent / clair | badge éditeur | Cube + wordmark « CURSOR » |
 
 ### Plateformes
 
@@ -121,7 +123,7 @@ Chemins publics :
 |-----------------|------------|
 | Fichier `wazuhicon…` = logo WorkOS (« W. » bleu) | Supprimé (pas Wazuh) |
 | Fichier `wiresharklogo…` = vrai logo Wazuh | → `vendors/wazuh/mark.png` |
-| Fichier `ompicon…` = mark Cursor (doublon) | Conservé une seule fois : `vendors/cursor/mark.png` |
+| Fichier `ompicon…` classé à tort comme Cursor | → `vendors/omp/mark.png` (omp.sh). Cursor = cube facettes. |
 
 ## Statut
 

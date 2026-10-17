@@ -14,8 +14,8 @@ type HubItem = {
 };
 
 const hubs: HubItem[] = [
-  { id: "cursor", src: "/brand/vendors/cursor/mark.png", x: 110, y: 90, path: "M 270 205 V 105 Q 270 90 255 90 H 110", delay: 0.1 },
-  { id: "claude", src: "/brand/vendors/claude-code/mark-mascot.jpg", x: 454, y: 70, path: "M 294 205 V 85 Q 294 70 309 70 H 454", delay: 0.2 },
+  { id: "omp", src: "/brand/vendors/omp/mark.png", x: 110, y: 90, path: "M 270 205 V 105 Q 270 90 255 90 H 110", delay: 0.1 },
+  { id: "cursor", src: "/brand/vendors/cursor/mark.png", x: 454, y: 70, path: "M 294 205 V 85 Q 294 70 309 70 H 454", delay: 0.2 },
   { id: "ida", src: "/brand/vendors/ida/logo-with-text.jpg", x: 80, y: 205, path: "M 250 205 H 80", delay: 0.3 },
   { id: "burp", src: "/brand/vendors/burp-suite/mark.png", x: 484, y: 205, path: "M 314 205 H 484", delay: 0.4 },
   { id: "caido", src: "/brand/vendors/caido/mark.png", x: 140, y: 340, path: "M 270 215 V 325 Q 270 340 255 340 H 140", delay: 0.55 },
