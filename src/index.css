@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-ink: #050505;
+  --color-panel: #0e0e0e;
+  --color-raised: #141414;
+  --color-line: #1c1c1c;
+  --color-mute: #8a8a8a;
+  --color-faint: #5c5c5c;
+  --color-text: #f4f4f4;
+  --color-signal: #fb000f;
+  --color-signal-hover: #ff2a36;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.grid-infra {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 40%, transparent 75%);
+}
+
+.route-rail {
+  stroke: #2a2a2a;
+  stroke-width: 1.25;
+  stroke-dasharray: 5 7;
+}
+
+.route-pulse {
+  animation: route-pulse 3s ease-out infinite;
+}
+
+@keyframes route-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+.tok-k {
+  color: #ff6b73;
+}
+.tok-s {
+  color: #c8c8c8;
+}
+.tok-p {
+  color: #7a7a7a;
+}
+.tok-fn {
+  color: #e8e8e8;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
