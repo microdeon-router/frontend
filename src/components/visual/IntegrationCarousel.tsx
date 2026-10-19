@@ -2,10 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { agents, tools, type Integration } from "@/data/integrations";
+import { tools } from "@/data/integrations";
 import { localePath, useI18n } from "@/i18n";
-
-const cards: Integration[] = [...agents, ...tools];
 
 export default function IntegrationCarousel() {
   const { locale, m } = useI18n();
@@ -62,12 +60,12 @@ export default function IntegrationCarousel() {
       </div>
 
       <div ref={emblaRef} className="overflow-hidden">
-        <ul className="flex gap-5">
-          {cards.map((card) => (
-            <li key={card.slug} className="min-w-0 shrink-0 basis-[16.5rem] sm:basis-[18.5rem]">
+        <ul className="flex gap-4">
+          {tools.map((card) => (
+            <li key={card.slug} className="min-w-0 shrink-0 basis-[13rem] sm:basis-[14.5rem]">
               <Link
                 to={localePath(locale, "/docs")}
-                className="group relative flex h-[22rem] flex-col justify-between overflow-hidden rounded-2xl border border-line bg-panel p-6 transition-transform duration-300 hover:scale-[1.015]"
+                className="group relative flex h-[16.5rem] flex-col justify-between overflow-hidden rounded-2xl border border-line bg-panel p-5 transition-transform duration-300 hover:scale-[1.015]"
               >
                 <div
                   className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -78,14 +76,23 @@ export default function IntegrationCarousel() {
                   }}
                 />
                 <div className="relative z-10">
-                  <p className="text-[12px] uppercase tracking-[0.14em] text-faint">
-                    {card.kind === "agent" ? m.agents.kicker : m.tools.kicker}
-                  </p>
-                  <p className="mt-3 text-[1.65rem] font-medium tracking-tight text-white">{card.name}</p>
+                  <p className="text-[1.35rem] font-medium tracking-tight text-white">{card.name}</p>
                 </div>
                 <div className="relative z-10 flex items-end justify-between">
-                  <div className="flex size-16 items-center justify-center overflow-hidden rounded-xl border border-line bg-ink">
-                    <img src={card.src} alt="" className="size-10 object-contain" />
+                  <div className="flex size-16 items-center justify-center overflow-hidden rounded-xl border border-line bg-ink p-1">
+                    <img
+                      src={card.src}
+                      alt=""
+                      width={64}
+                      height={64}
+                      loading="lazy"
+                      decoding="async"
+                      className={
+                        card.slug === "ida" || card.slug === "wazuh" || card.slug === "nmap"
+                          ? "h-full w-full object-contain"
+                          : "size-10 object-contain"
+                      }
+                    />
                   </div>
                   <span className="flex size-10 items-center justify-center rounded-full bg-white text-black">
                     <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />

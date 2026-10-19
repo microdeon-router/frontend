@@ -1,5 +1,9 @@
+import DocumentMeta from "@/components/seo/DocumentMeta";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import Button from "@/components/ui/Button";
-import { localePath, useI18n } from "@/i18n";
+import { I18nProvider, localePath, useI18n } from "@/i18n";
+import { defaultLocale } from "@/i18n/locales";
 
 export default function NotFound() {
   const { locale, m } = useI18n();
@@ -12,5 +16,21 @@ export default function NotFound() {
         {m.notFound.home}
       </Button>
     </div>
+  );
+}
+
+/** URL hors préfixe de langue : 404, pas une redirection vers l’accueil. */
+export function UnknownRoute() {
+  return (
+    <I18nProvider locale={defaultLocale}>
+      <DocumentMeta />
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <NotFound />
+        </main>
+        <Footer />
+      </div>
+    </I18nProvider>
   );
 }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Volatility">
+  <title>Volatility</title>
+  <path
+    fill="none"
+    stroke="#F4F4F4"
+    stroke-width="14"
+    stroke-linecap="butt"
+    d="M40.55 22.85A50 50 0 1 1 87.45 22.85"
+  />
+  <rect x="59.5" y="3" width="9" height="21" rx="1.2" fill="#F4F4F4"/>
+  <path
+    fill="#CF2E3D"
+    d="M28 61 40 54v14Zm74 0-12-7v14Z"
+  />
+  <path
+    fill="none"
+    stroke="#CF2E3D"
+    stroke-width="6.5"
+    stroke-linejoin="miter"
+    stroke-miterlimit="14"
+    stroke-linecap="butt"
+    d="M40 61h14L64 99 82.5 38 90 60h10"
+  />
+</svg>

@@ -1,24 +1,26 @@
-import { useEffect } from "react";
-import { Navigate, Outlet, useParams } from "react-router-dom";
-import { I18nProvider, useI18n } from "@/i18n";
-import { STORAGE_KEY, isLocale } from "@/i18n/locales";
+import { useLayoutEffect } from "react";
+import { Navigate, Outlet, useLocation, useParams } from "react-router-dom";
+import DocumentMeta from "@/components/seo/DocumentMeta";
+import { I18nProvider } from "@/i18n";
+import { isLocale } from "@/i18n/locales";
 import Footer from "./Footer";
 import Header from "./Header";
 
-function DocumentLang() {
-  const { locale, m } = useI18n();
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-    document.title = m.meta.title;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", m.meta.description);
-    try {
-      localStorage.setItem(STORAGE_KEY, locale);
-    } catch {
-      /* ignore */
+function ScrollOnNavigate() {
+  const { pathname, hash } = useLocation();
+
+  useLayoutEffect(() => {
+    if (hash) {
+      const id = decodeURIComponent(hash.replace(/^#/, ""));
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "auto" });
+        return;
+      }
     }
-  }, [locale, m]);
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname, hash]);
+
   return null;
 }
 
@@ -27,7 +29,8 @@ export default function Shell() {
   if (!isLocale(locale)) return <Navigate to="/fr" replace />;
   return (
     <I18nProvider>
-      <DocumentLang />
+      <DocumentMeta />
+      <ScrollOnNavigate />
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">

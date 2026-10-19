@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Burp Suite">
+  <title>Burp Suite</title>
+  <defs>
+    <clipPath id="burp-disk">
+      <circle cx="64" cy="64" r="64"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#burp-disk)">
+    <path fill="#999999" d="M0 0h64v128H0z"/>
+    <path fill="#FFAC76" d="M64 0h64v128H64z"/>
+    <path
+      fill="none"
+      stroke="#fff"
+      stroke-width="8.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M62 0v22L34 50h30v26h30L65 105v23"
+    />
+  </g>
+</svg>

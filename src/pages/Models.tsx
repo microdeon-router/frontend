@@ -1,32 +1,27 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Badge from "@/components/ui/Badge";
-import { models, type Capability, type Category, type ModelStatus } from "@/data/models";
+import { models, type Category } from "@/data/models";
 import { localePath, useI18n } from "@/i18n";
+import { modelPriceLabel } from "@/lib/price";
 
-const statuses: Array<ModelStatus | "all"> = ["all", "candidate", "coming", "preview", "available"];
-const caps: Array<Capability | "all"> = ["all", "chat", "tool_calling", "reasoning", "classification", "routing"];
 const cats: Array<Category | "all"> = ["all", "offsec", "detection", "reverse", "forensics", "nlp", "router"];
 
 export default function ModelsPage() {
   const { locale, m, t } = useI18n();
   const [q, setQ] = useState("");
-  const [status, setStatus] = useState<ModelStatus | "all">("all");
-  const [cap, setCap] = useState<Capability | "all">("all");
   const [cat, setCat] = useState<Category | "all">("all");
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     return models.filter((model) => {
-      if (status !== "all" && model.status !== status) return false;
-      if (cap !== "all" && !model.capabilities.includes(cap)) return false;
       if (cat !== "all" && model.category !== cat) return false;
       const copy = m.modelCopy[model.slug as keyof typeof m.modelCopy];
       if (query && !`${model.id} ${model.displayName} ${copy?.short ?? model.short}`.toLowerCase().includes(query))
         return false;
       return true;
     });
-  }, [q, status, cap, cat, m.modelCopy]);
+  }, [q, cat, m.modelCopy]);
 
   const chip = <T extends string>(
     value: T,
@@ -52,7 +47,9 @@ export default function ModelsPage() {
       <h1 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-semibold tracking-[-0.035em] text-white">
         {m.catalog.title}
       </h1>
-      <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-mute">{m.catalog.lead}</p>
+      {m.catalog.lead ? (
+        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-mute">{m.catalog.lead}</p>
+      ) : null}
 
       <label className="mt-8 block">
         <span className="sr-only">{m.catalog.search}</span>
@@ -64,21 +61,9 @@ export default function ModelsPage() {
         />
       </label>
 
-      <div className="mt-5 space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-20 text-[11px] uppercase tracking-wide text-faint">{m.catalog.status}</span>
-          {statuses.map((item) =>
-            chip(item, status, setStatus, item === "all" ? m.catalog.all : m.status[item]),
-          )}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-20 text-[11px] uppercase tracking-wide text-faint">{m.catalog.capability}</span>
-          {caps.map((item) => chip(item, cap, setCap, item === "all" ? m.catalog.all : m.cap[item]))}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="w-20 text-[11px] uppercase tracking-wide text-faint">{m.catalog.category}</span>
-          {cats.map((item) => chip(item, cat, setCat, item === "all" ? m.catalog.all : m.cat[item]))}
-        </div>
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        <span className="w-20 text-[11px] uppercase tracking-wide text-faint">{m.catalog.category}</span>
+        {cats.map((item) => chip(item, cat, setCat, item === "all" ? m.catalog.all : m.cat[item]))}
       </div>
 
       <ul className="mt-10 divide-y divide-line border-y border-line">
@@ -99,19 +84,13 @@ export default function ModelsPage() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <Badge tone={model.status === "candidate" ? "signal" : "mute"}>{m.status[model.status]}</Badge>
-                  {model.capabilities.map((c) => (
-                    <Badge key={c}>{m.cap[c]}</Badge>
-                  ))}
+                  <Badge>{m.cat[model.category]}</Badge>
                 </div>
                 <div className="text-right font-mono text-[12px] text-faint">
-                  {model.pricing.inputPerMtok !== "—" ? (
-                    <>
-                      {t((msg) => msg.catalog.perMtok, { n: model.pricing.inputPerMtok })}
-                      <span className="block">{t((msg) => msg.catalog.examplePrice, { version: model.pricing.version })}</span>
-                    </>
-                  ) : (
-                    m.common.soon
+                  {modelPriceLabel(
+                    model,
+                    m.catalog.from,
+                    t((msg) => msg.catalog.perHour, { n: model.pricing.perHour }),
                   )}
                 </div>
               </Link>

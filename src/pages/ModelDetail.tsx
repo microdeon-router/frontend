@@ -1,23 +1,25 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import CodeBlock from "@/components/ui/CodeBlock";
 import { modelBySlug } from "@/data/models";
 import { localePath, useI18n } from "@/i18n";
+import { modelPriceLabel } from "@/lib/price";
 
 export default function ModelDetail() {
   const { slug } = useParams();
   const { locale, m, t } = useI18n();
   const model = slug ? modelBySlug(slug) : undefined;
-  if (!model) return <Navigate to={localePath(locale, "/models")} replace />;
+  if (!model) return <NotFound />;
 
   const specs = [
     { k: m.model.runtime, v: model.runtime },
+    { k: m.model.gpu, v: model.pricing.gpu },
     { k: m.model.params, v: model.params },
-    { k: m.catalog.context, v: model.contextLength ? String(model.contextLength) : "—" },
-    { k: m.model.output, v: model.maxOutput ? String(model.maxOutput) : "—" },
+    { k: m.model.context, v: model.contextLength ? String(model.contextLength) : "-" },
+    { k: m.model.output, v: model.maxOutput ? String(model.maxOutput) : "-" },
     { k: m.model.upstream, v: model.upstream },
-    { k: m.catalog.status, v: m.status[model.status] },
   ];
 
   return (
@@ -32,11 +34,10 @@ export default function ModelDetail() {
             {model.displayName}
           </h1>
           <div className="mt-4 flex flex-wrap gap-1.5">
-            <Badge tone="signal">{m.status[model.status]}</Badge>
+            <Badge>{m.cat[model.category]}</Badge>
             {model.capabilities.map((c) => (
               <Badge key={c}>{m.cap[c]}</Badge>
             ))}
-            <Badge>{m.cat[model.category]}</Badge>
           </div>
         </div>
         <Button to={localePath(locale, "/docs")}>{m.model.use}</Button>
@@ -57,32 +58,37 @@ export default function ModelDetail() {
             ))}
           </dl>
 
-          <h2 className="mt-10 text-[15px] font-medium text-white">{m.model.limits}</h2>
-          <ul className="mt-3 space-y-2">
-            {model.limitations.map((item) => (
-              <li key={item} className="text-[14px] leading-relaxed text-mute">
-                — {item}
-              </li>
-            ))}
-          </ul>
+          {model.limitations.length ? (
+            <>
+              <h2 className="mt-10 text-[15px] font-medium text-white">{m.model.limits}</h2>
+              <ul className="mt-3 space-y-2">
+                {model.limitations.map((item) => (
+                  <li key={item} className="text-[14px] leading-relaxed text-mute">
+                   : {item}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
         </div>
 
         <aside className="space-y-4">
           <div className="rounded-xl border border-line bg-panel p-5">
             <p className="text-[12px] uppercase tracking-[0.14em] text-faint">{m.model.pricing}</p>
-            <p className="mt-3 font-mono text-[13px] text-white">
-              in {model.pricing.inputPerMtok} € · out {model.pricing.outputPerMtok} € / MTok
+            <p className="mt-3 font-mono text-[1.45rem] tracking-tight text-white">
+              {modelPriceLabel(
+                model,
+                m.catalog.from,
+                t((msg) => msg.catalog.perHour, { n: model.pricing.perHour }),
+              )}
             </p>
-            <p className="mt-2 text-[12px] text-mute">
-              {t((msg) => msg.catalog.examplePrice, { version: model.pricing.version })}
-            </p>
+            <p className="mt-2 text-[13px] text-mute">{model.pricing.gpu}</p>
           </div>
           <div className="rounded-xl border border-line bg-panel p-5">
             <p className="text-[12px] uppercase tracking-[0.14em] text-faint">{m.model.policy}</p>
             <p className="mt-3 text-[13.5px] leading-relaxed text-mute">{model.dataPolicy.backend}</p>
             <p className="mt-2 text-[13.5px] leading-relaxed text-mute">{model.dataPolicy.retention}</p>
-            <p className="mt-3 text-[12.5px] text-signal">{model.dataPolicy.zdr ? m.model.zdr : m.model.zdrNo}</p>
-            <p className="mt-2 text-[12px] text-faint">{m.model.notEvaluated}</p>
+            <p className="mt-3 text-[12.5px] text-mute">{model.dataPolicy.zdr ? m.model.zdr : m.model.zdrNo}</p>
           </div>
           {model.vendorLogo ? (
             <div className="flex items-center gap-3 rounded-xl border border-line bg-panel px-5 py-4">

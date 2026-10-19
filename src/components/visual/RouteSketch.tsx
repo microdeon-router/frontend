@@ -67,7 +67,7 @@ export default function RouteSketch() {
         </div>
         <div className="flex w-[5rem] flex-col items-center sm:w-[6.5rem]">
           <div className="relative flex size-12 items-center justify-center rounded-2xl border border-[#3a1014] bg-[#140608] sm:size-14">
-            <img src="/brand/microdeon/mark.png" alt="" className="h-8 w-8 object-contain sm:h-9 sm:w-9" />
+            <img src="/brand/microdeon/mark-ui.webp" alt="" width={36} height={36} className="h-8 w-8 object-contain sm:h-9 sm:w-9" />
             <span className="route-pulse absolute inset-0 rounded-2xl border border-signal/35" />
           </div>
           <p className="mt-2 text-[12px] text-white">Microdeon</p>

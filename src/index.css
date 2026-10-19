@@ -29,6 +29,10 @@ html {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  .hero-caret {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 body {
@@ -73,6 +77,21 @@ a {
 
 .route-pulse {
   animation: route-pulse 3s ease-out infinite;
+}
+
+.hero-caret {
+  animation: hero-caret 0.9s steps(1) infinite;
+}
+
+@keyframes hero-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes route-pulse {

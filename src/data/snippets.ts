@@ -94,13 +94,13 @@ const resp = await client.chat.completions.create({
   {
     id: "agents",
     label: "Agents",
-    code: `# omp / Cursor / Claude Code / Goose / Hermes — endpoint OpenAI-compatible
+    code: `# omp / Cursor / Claude Code / Codex / OpenClaw / Goose / Hermes / Continue / Cline: endpoint OpenAI-compatible
 OPENAI_BASE_URL=https://api.microdeon.fr/v1
 OPENAI_API_KEY=mdn_<id>_<secret>
 OPENAI_MODEL=microdeon/cyberstrike-35b
 `,
     lines: [
-      [p("# omp / Cursor / Claude Code / Goose / Hermes")],
+      [p("# omp / Cursor / Claude Code / Codex / OpenClaw / Goose / Hermes / Continue / Cline")],
       [fn("OPENAI_BASE_URL"), p("="), s("https://api.microdeon.fr/v1")],
       [fn("OPENAI_API_KEY"), p("="), s("mdn_<id>_<secret>")],
       [fn("OPENAI_MODEL"), p("="), s("microdeon/cyberstrike-35b")],

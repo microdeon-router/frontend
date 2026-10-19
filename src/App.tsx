@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Shell from "@/components/layout/Shell";
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/Dashboard";
@@ -7,7 +7,7 @@ import Home from "@/pages/Home";
 import LocaleRedirect from "@/pages/LocaleRedirect";
 import ModelDetail from "@/pages/ModelDetail";
 import ModelsPage from "@/pages/Models";
-import NotFound from "@/pages/NotFound";
+import NotFound, { UnknownRoute } from "@/pages/NotFound";
 
 export default function App() {
   return (
@@ -23,7 +23,7 @@ export default function App() {
         <Route path="signup" element={<Auth mode="signup" />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<UnknownRoute />} />
     </Routes>
   );
 }

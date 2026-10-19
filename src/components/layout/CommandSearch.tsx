@@ -2,11 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { models } from "@/data/models";
 import { localePath, useI18n } from "@/i18n";
+import { useAuthSession } from "@/lib/session";
 
 type CommandSearchProps = { open: boolean; onClose: () => void };
 
 export default function CommandSearch({ open, onClose }: CommandSearchProps) {
   const { locale, m } = useI18n();
+  const { signedIn } = useAuthSession();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -17,10 +19,14 @@ export default function CommandSearch({ open, onClose }: CommandSearchProps) {
       { href: localePath(locale), label: "Microdeon", group: m.search.pages },
       { href: localePath(locale, "/models"), label: m.nav.models, group: m.search.pages },
       { href: localePath(locale, "/docs"), label: m.nav.docs, group: m.search.pages },
-      { href: localePath(locale, "/dashboard"), label: m.nav.dashboard, group: m.search.pages },
+      {
+        href: localePath(locale, signedIn ? "/dashboard" : "/signin"),
+        label: m.nav.dashboard,
+        group: m.search.pages,
+      },
       { href: localePath(locale, "/signin"), label: m.nav.signin, group: m.search.pages },
     ],
-    [locale, m],
+    [locale, m, signedIn],
   );
 
   const results = useMemo(() => {

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { localePath, useI18n } from "@/i18n";
-import { authClient } from "@/lib/auth-client";
+import { useAuthSession } from "@/lib/session";
 
 const keys = [
   { id: "mdn_8f2a", hint: "mdn_8f2a_••••••••", scopes: "inference, usage:read, keys:write", created: "2026-10-17" },
@@ -15,13 +14,13 @@ const ledger = [
 
 export default function Dashboard() {
   const { locale, m } = useI18n();
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, user, isPending, signedIn } = useAuthSession();
   const [toast, setToast] = useState<string | null>(null);
 
   if (isPending) {
     return <p className="px-4 py-16 text-center text-[14px] text-mute">{m.auth.pending}</p>;
   }
-  if (!session) return <Navigate to={localePath(locale, "/signin")} replace />;
+  if (!signedIn || !session) return <Navigate to={localePath(locale, "/signin")} replace />;
 
   return (
     <div className="mx-auto max-w-[1120px] px-4 py-16 sm:px-6">
@@ -29,9 +28,8 @@ export default function Dashboard() {
         <div>
           <h1 className="text-[clamp(1.8rem,4vw,2.5rem)] font-semibold tracking-[-0.035em] text-white">{m.dash.title}</h1>
           <p className="mt-3 max-w-xl text-[15px] text-mute">{m.dash.lead}</p>
-          <p className="mt-2 font-mono text-[13px] text-faint">{session.user.email}</p>
+          <p className="mt-2 font-mono text-[13px] text-faint">{user?.email}</p>
         </div>
-        <Badge tone="signal">{m.dash.concept}</Badge>
       </div>
 
       <div className="mt-10 grid gap-3 sm:grid-cols-3">

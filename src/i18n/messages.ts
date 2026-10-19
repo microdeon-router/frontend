@@ -36,8 +36,8 @@ export type Messages = {
     lead: string;
     all: string;
     empty: string;
-    examplePrice: string;
-    perMtok: string;
+    from: string;
+    perHour: string;
     context: string;
     view: string;
     filters: string;
@@ -70,6 +70,8 @@ export type Messages = {
   model: {
     specs: string;
     pricing: string;
+    gpu: string;
+    context: string;
     policy: string;
     limits: string;
     upstream: string;
@@ -88,11 +90,11 @@ export type Messages = {
     title: string;
     steps: { title: string; body: string }[];
   };
-  qualify: {
+  tryIt: {
     kicker: string;
     title: string;
-    body: string;
-    points: string[];
+    lead: string;
+    cta: string;
   };
   docs: {
     title: string;

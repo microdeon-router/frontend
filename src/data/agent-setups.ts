@@ -8,7 +8,7 @@ export type AgentSetup = {
   code: string;
 };
 
-const env = `# {name} — OpenAI-compatible
+const env = `# {name}: OpenAI-compatible
 OPENAI_BASE_URL=https://api.microdeon.fr/v1
 OPENAI_API_KEY=mdn_<id>_<secret>
 OPENAI_MODEL=microdeon/cyberstrike-35b
@@ -31,7 +31,7 @@ export const agentSetups: AgentSetup[] = [
     "omp",
     "omp.sh · env",
     `
-# https://omp.sh — OpenAI-compatible provider
+# https://omp.sh: OpenAI-compatible provider
 export OPENAI_BASE_URL=https://api.microdeon.fr/v1
 export OPENAI_API_KEY=mdn_<id>_<secret>
 `,
@@ -41,7 +41,25 @@ export OPENAI_API_KEY=mdn_<id>_<secret>
     "claude-code",
     "Claude Code · env",
     `
-# Claude Code — OpenAI-compatible env
+# Claude Code: OpenAI-compatible env
+export OPENAI_BASE_URL=https://api.microdeon.fr/v1
+export OPENAI_API_KEY=mdn_<id>_<secret>
+`,
+  ),
+  fromAgent(
+    "codex",
+    "Codex · env",
+    `
+# Codex: OpenAI-compatible env
+export OPENAI_BASE_URL=https://api.microdeon.fr/v1
+export OPENAI_API_KEY=mdn_<id>_<secret>
+`,
+  ),
+  fromAgent(
+    "openclaw",
+    "OpenClaw · env",
+    `
+# OpenClaw: OpenAI-compatible env
 export OPENAI_BASE_URL=https://api.microdeon.fr/v1
 export OPENAI_API_KEY=mdn_<id>_<secret>
 `,
@@ -49,9 +67,7 @@ export OPENAI_API_KEY=mdn_<id>_<secret>
   fromAgent("goose", "Goose · .config/goose/config.yaml"),
   fromAgent("hermes", "Hermes · provider OpenAI"),
   {
-    id: "continue",
-    name: "Continue",
-    file: ".continue/config.json",
+    ...fromAgent("continue", ".continue/config.json"),
     code: `{
   "models": [{
     "title": "Microdeon CyberStrike",
@@ -63,12 +79,7 @@ export OPENAI_API_KEY=mdn_<id>_<secret>
 }
 `,
   },
-  {
-    id: "cline",
-    name: "Cline",
-    file: "VS Code · Cline · OpenAI Native",
-    code: env.replace("{name}", "Cline"),
-  },
+  fromAgent("cline", "VS Code · Cline · OpenAI Native"),
   {
     id: "aider",
     name: "Aider",

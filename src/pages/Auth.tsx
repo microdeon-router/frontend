@@ -5,12 +5,22 @@ import { Wordmark } from "@/components/brand/Mark";
 import Button from "@/components/ui/Button";
 import { localePath, useI18n } from "@/i18n";
 import { authClient } from "@/lib/auth-client";
+import { isSignedIn, useAuthSession } from "@/lib/session";
 
 function PersonIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-4 w-4 text-mute" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
       <circle cx="12" cy="8" r="3.2" />
       <path d="M5 19c1.4-3.2 3.8-5 7-5s5.6 1.8 7 5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function KeyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 text-mute" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <circle cx="7.5" cy="12" r="3.2" />
+      <path d="M10.7 12H21M17.2 12v3M20 12v2.2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -26,7 +36,7 @@ type SocialProvider = (typeof providers)[number]["slug"];
 export default function Auth({ mode }: { mode: "signin" | "signup" }) {
   const { locale, m, t } = useI18n();
   const navigate = useNavigate();
-  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const { signedIn, isPending: sessionPending } = useAuthSession();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const signup = mode === "signup";
@@ -54,23 +64,25 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
     const form = new FormData(event.currentTarget);
     const email = String(form.get("email") ?? "");
     const password = String(form.get("password") ?? "");
-    const name = String(form.get("name") ?? "");
     const { error: authError } = signup
-      ? await authClient.signUp.email({ email, password, name })
+      ? await authClient.signUp.email({ email, password, name: email.split("@")[0] || email })
       : await authClient.signIn.email({ email, password });
     if (authError) {
       fail(authError.message);
       return;
     }
     const session = await authClient.getSession();
-    if (!session.data) {
+    if (!isSignedIn(session.data)) {
       fail();
       return;
     }
     navigate(next);
   };
 
-  if (!sessionPending && session) return <Navigate to={next} replace />;
+  if (sessionPending) {
+    return <p className="px-4 py-16 text-center text-[14px] text-mute">{m.auth.pending}</p>;
+  }
+  if (signedIn) return <Navigate to={next} replace />;
 
   return (
     <div className="mx-auto flex max-w-[420px] flex-col px-4 py-16 sm:px-6">
@@ -96,17 +108,6 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
       <p className="my-6 text-center text-[12px] uppercase tracking-[0.14em] text-faint">{m.auth.orEmail}</p>
 
       <form onSubmit={submit} className="space-y-3">
-        {signup ? (
-          <label className="block">
-            <span className="mb-1.5 block text-[12px] text-mute">{m.auth.name}</span>
-            <input
-              name="name"
-              required
-              autoComplete="name"
-              className="h-11 w-full rounded-lg border border-line bg-panel px-3 text-[14px] text-white outline-none focus:border-[#444]"
-            />
-          </label>
-        ) : null}
         <label className="block">
           <span className="mb-1.5 block text-[12px] text-mute">{m.auth.email}</span>
           <div className="relative">
@@ -124,14 +125,19 @@ export default function Auth({ mode }: { mode: "signin" | "signup" }) {
         </label>
         <label className="block">
           <span className="mb-1.5 block text-[12px] text-mute">{m.auth.password}</span>
-          <input
-            type="password"
-            name="password"
-            required
-            minLength={8}
-            autoComplete={signup ? "new-password" : "current-password"}
-            className="h-11 w-full rounded-lg border border-line bg-panel px-3 text-[14px] text-white outline-none focus:border-[#444]"
-          />
+          <div className="relative">
+            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2">
+              <KeyIcon />
+            </span>
+            <input
+              type="password"
+              name="password"
+              required
+              minLength={signup ? 8 : 5}
+              autoComplete={signup ? "new-password" : "current-password"}
+              className="h-11 w-full rounded-lg border border-line bg-panel py-2 pl-10 pr-3 text-[14px] text-white outline-none focus:border-[#444]"
+            />
+          </div>
         </label>
         <Button type="submit" disabled={pending} className="h-11 w-full rounded-lg disabled:opacity-60">
           {pending ? m.auth.pending : signup ? m.auth.submitUp : m.auth.submitIn}

@@ -1,13 +1,23 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Wordmark } from "@/components/brand/Mark";
-import { localePath, useI18n } from "@/i18n";
+import { loadMessages, localePath, useI18n } from "@/i18n";
 import { STORAGE_KEY, locales, type Locale } from "@/i18n/locales";
+import { useAuthSession } from "@/lib/session";
+import { swapLocale } from "@/seo/site";
 
 export default function Footer() {
   const { locale, m, t } = useI18n();
-  const navigate = useNavigate();
+  const { signedIn } = useAuthSession();
   const location = useLocation();
   const year = new Date().getFullYear();
+
+  const remember = (code: Locale) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, code);
+    } catch {
+      /* ignore */
+    }
+  };
 
   const col = (title: string, items: { to: string; label: string }[]) => (
     <div>
@@ -24,17 +34,6 @@ export default function Footer() {
     </div>
   );
 
-  const switchTo = (code: Locale) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, code);
-    } catch {
-      /* ignore */
-    }
-    const parts = location.pathname.split("/");
-    parts[1] = code;
-    navigate(parts.join("/") + location.search);
-  };
-
   return (
     <footer className="border-t border-line">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_repeat(4,1fr)]">
@@ -45,11 +44,14 @@ export default function Footer() {
         {col(m.footer.product, [
           { to: localePath(locale, "/models"), label: m.nav.models },
           { to: localePath(locale, "/docs"), label: m.nav.docs },
-          { to: localePath(locale, "/dashboard"), label: m.nav.dashboard },
+          {
+            to: localePath(locale, signedIn ? "/dashboard" : "/signin"),
+            label: m.nav.dashboard,
+          },
         ])}
         {col(m.footer.developers, [
           { to: localePath(locale, "/docs"), label: "OpenAI SDK" },
-          { to: localePath(locale, "/docs#agents"), label: "omp / Cursor / Claude Code" },
+          { to: localePath(locale, "/docs#agents"), label: "omp / Cursor / Claude Code / Codex / OpenClaw / Continue / Cline" },
           { to: localePath(locale, "/models/cyberstrike-35b"), label: "cyberstrike-35b" },
         ])}
         {col(m.footer.company, [
@@ -63,21 +65,27 @@ export default function Footer() {
       </div>
       <div className="mx-auto flex max-w-[1280px] flex-col gap-4 border-t border-line px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p className="text-[12.5px] text-faint">{t((msg) => msg.footer.copyright, { year })}</p>
-        <ul className="flex flex-wrap gap-3">
-          {locales.map((item) => (
-            <li key={item.code}>
-              <button
-                type="button"
-                onClick={() => switchTo(item.code)}
-                className={`font-mono text-[11px] uppercase tracking-wide ${
-                  item.code === locale ? "text-white" : "text-faint hover:text-[#c8c8c8]"
-                }`}
-              >
-                {item.code}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <nav aria-label={m.lang.label}>
+          <ul className="flex flex-wrap gap-3">
+            {locales.map((item) => (
+              <li key={item.code}>
+                <Link
+                  to={swapLocale(location.pathname, location.search, location.hash, item.code)}
+                  hrefLang={item.code}
+                  onMouseEnter={() => void loadMessages(item.code)}
+                  onFocus={() => void loadMessages(item.code)}
+                  onClick={() => remember(item.code)}
+                  aria-current={item.code === locale ? "page" : undefined}
+                  className={`font-mono text-[11px] uppercase tracking-wide ${
+                    item.code === locale ? "text-white" : "text-faint hover:text-[#c8c8c8]"
+                  }`}
+                >
+                  {item.code}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   );

@@ -14,12 +14,12 @@ type HubItem = {
 };
 
 const hubs: HubItem[] = [
-  { id: "omp", src: "/brand/vendors/omp/mark.png", x: 110, y: 90, path: "M 270 205 V 105 Q 270 90 255 90 H 110", delay: 0.1 },
-  { id: "cursor", src: "/brand/vendors/cursor/mark.png", x: 454, y: 70, path: "M 294 205 V 85 Q 294 70 309 70 H 454", delay: 0.2 },
-  { id: "ida", src: "/brand/vendors/ida/logo-with-text.jpg", x: 80, y: 205, path: "M 250 205 H 80", delay: 0.3 },
-  { id: "burp", src: "/brand/vendors/burp-suite/mark.png", x: 484, y: 205, path: "M 314 205 H 484", delay: 0.4 },
-  { id: "caido", src: "/brand/vendors/caido/mark.png", x: 140, y: 340, path: "M 270 215 V 325 Q 270 340 255 340 H 140", delay: 0.55 },
-  { id: "nmap", src: "/brand/vendors/nmap/mark.png", x: 430, y: 340, path: "M 294 215 V 325 Q 294 340 309 340 H 430", delay: 0.7 },
+  { id: "omp", src: "/brand/vendors/omp/mark.svg", x: 110, y: 90, path: "M 270 205 V 105 Q 270 90 255 90 H 110", delay: 0.1 },
+  { id: "cursor", src: "/brand/vendors/cursor/mark.svg", x: 454, y: 70, path: "M 294 205 V 85 Q 294 70 309 70 H 454", delay: 0.2 },
+  { id: "ida", src: "/brand/vendors/ida/logo-ui.webp", x: 80, y: 205, path: "M 250 205 H 80", delay: 0.3 },
+  { id: "burp", src: "/brand/vendors/burp-suite/mark.svg", x: 484, y: 205, path: "M 314 205 H 484", delay: 0.4 },
+  { id: "caido", src: "/brand/vendors/caido/mark.svg", x: 140, y: 340, path: "M 270 215 V 325 Q 270 340 255 340 H 140", delay: 0.55 },
+  { id: "nmap", src: "/brand/vendors/nmap/mark-ui.webp", x: 430, y: 340, path: "M 294 215 V 325 Q 294 340 309 340 H 430", delay: 0.7 },
 ];
 
 function AnimatedPath({ d, id }: { d: string; id: string }) {
@@ -63,7 +63,7 @@ function Integration() {
       </svg>
 
       <div className="absolute left-1/2 top-1/2 z-20 flex size-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-line bg-ink p-2 sm:size-24">
-        <img src="/brand/microdeon/mark.png" alt="Microdeon" className="size-10 object-contain sm:size-14" />
+        <img src="/brand/microdeon/mark-ui.webp" alt="Microdeon" width={56} height={56} className="size-10 object-contain sm:size-14" />
         <motion.div
           className="absolute inset-0 rounded-2xl border border-signal/30"
           animate={{ scale: [1, 1.12, 1], opacity: [0.45, 0, 0.45] }}
@@ -84,7 +84,7 @@ function Integration() {
           }}
           className="absolute z-10 flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-xl border border-line bg-panel sm:size-14"
         >
-          <img src={item.src} alt="" className="size-7 object-contain sm:size-8" />
+          <img src={item.src} alt="" width={32} height={32} loading="lazy" decoding="async" className="size-7 object-contain sm:size-8" />
         </motion.div>
       ))}
     </div>

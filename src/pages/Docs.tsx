@@ -2,7 +2,7 @@ import CodeBlock from "@/components/ui/CodeBlock";
 import { useI18n } from "@/i18n";
 
 const endpoints = [
-  ["GET", "/healthz", "—"],
+  ["GET", "/healthz", "-"],
   ["GET", "/v1/models", "clé"],
   ["GET", "/v1/models/{id}", "clé"],
   ["POST", "/v1/chat/completions", "inference"],

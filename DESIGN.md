@@ -1,4 +1,4 @@
-# Design system — Microdeon
+# Design system: Microdeon
 
 Identité : noire, technique, précise. Le rouge du M (`#FB000F`) est le seul signal.
 Inspirations : Apple (hiérarchie, silence, typo), OrcaRouter (hero + snippet), OpenRouter (catalogue développeur).

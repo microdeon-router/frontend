@@ -1,17 +1,3 @@
-import type { Messages } from "./messages";
-import { ar } from "./locales/ar";
-import { bn } from "./locales/bn";
-import { de } from "./locales/de";
-import { en } from "./locales/en";
-import { es } from "./locales/es";
-import { fr } from "./locales/fr";
-import { hi } from "./locales/hi";
-import { id } from "./locales/id";
-import { ja } from "./locales/ja";
-import { pt } from "./locales/pt";
-import { ru } from "./locales/ru";
-import { zh } from "./locales/zh";
-
 export type Locale = "fr" | "en" | "es" | "de" | "zh" | "hi" | "id" | "pt" | "ar" | "bn" | "ru" | "ja";
 
 export const locales: {
@@ -32,8 +18,6 @@ export const locales: {
   { code: "ja", native: "日本語", region: "JP" },
   { code: "de", native: "Deutsch", region: "DE" },
 ];
-
-export const messages: Record<Locale, Messages> = { fr, en, es, de, zh, hi, id, pt, ar, bn, ru, ja };
 
 export const defaultLocale: Locale = "fr";
 export const STORAGE_KEY = "microdeon.locale";
