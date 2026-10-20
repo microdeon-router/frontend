@@ -12,10 +12,7 @@ async function authFetch(input: RequestInfo | URL, init?: RequestInit) {
   });
 }
 
-const authURL = import.meta.env.VITE_AUTH_URL?.replace(/\/$/, "");
-
 export const authClient = createAuthClient({
-  ...(authURL ? { baseURL: authURL } : {}),
   fetchOptions: {
     customFetchImpl: authFetch,
     credentials: "include",

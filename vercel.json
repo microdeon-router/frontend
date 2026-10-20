@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    {
+      "source": "/api/auth/:path*",
+      "destination": "https://unnecessary-locking-cake-bra.trycloudflare.com/api/auth/:path*"
+    },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
