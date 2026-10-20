@@ -139,7 +139,7 @@ export const ru: Messages = {
   },
   dash: {
     title: "Консоль",
-    lead: "Ключи API, использование и кредиты.",
+    lead: "Выберите модель, напишите, отправьте.",
     concept: "Консоль",
     balance: "Баланс",
     month: "Этот месяц",
@@ -155,6 +155,14 @@ export const ru: Messages = {
     scope: "Области",
     created: "Создан",
     revoke: "Отозвать",
+    prompt: "Напишите здесь",
+    send: "Отправить",
+    empty: "Модель отвечает в этом окне.",
+    working: "Ждём модель…",
+    failed: "Нет ответа. Проверьте ключ и попробуйте снова.",
+    needKey: "Вставьте ключ API, чтобы отправить.",
+    keyPh: "Ключ API",
+    clear: "Новый",
   },
   auth: {
     signinTitle: "Вход",

@@ -138,6 +138,14 @@ export type Messages = {
     scope: string;
     created: string;
     revoke: string;
+    prompt: string;
+    send: string;
+    empty: string;
+    working: string;
+    failed: string;
+    needKey: string;
+    keyPh: string;
+    clear: string;
   };
   auth: {
     signinTitle: string;

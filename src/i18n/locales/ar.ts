@@ -139,7 +139,7 @@ export const ar: Messages = {
   },
   dash: {
     title: "لوحة التحكم",
-    lead: "مفاتيح API والاستخدام والأرصدة.",
+    lead: "اختر نموذجًا، اكتب، أرسل.",
     concept: "لوحة التحكم",
     balance: "الرصيد",
     month: "هذا الشهر",
@@ -155,6 +155,14 @@ export const ar: Messages = {
     scope: "النطاقات",
     created: "أُنشئ",
     revoke: "إلغاء",
+    prompt: "اكتب هنا",
+    send: "إرسال",
+    empty: "يرد النموذج في هذه النافذة.",
+    working: "بانتظار النموذج…",
+    failed: "لا رد. تحقق من المفتاح ثم أعد المحاولة.",
+    needKey: "ألصق مفتاح API للإرسال.",
+    keyPh: "مفتاح API",
+    clear: "جديد",
   },
   auth: {
     signinTitle: "دخول",

@@ -143,7 +143,7 @@ export const de: Messages = {
   },
   dash: {
     title: "Konsole",
-    lead: "API-Keys, Usage und Guthaben.",
+    lead: "Modell wählen, schreiben, senden.",
     concept: "Konsole",
     balance: "Saldo",
     month: "Dieser Monat",
@@ -159,6 +159,14 @@ export const de: Messages = {
     scope: "Scopes",
     created: "Erstellt",
     revoke: "Widerrufen",
+    prompt: "Hier schreiben",
+    send: "Senden",
+    empty: "Das Modell antwortet in diesem Fenster.",
+    working: "Das Modell antwortet…",
+    failed: "Keine Antwort. Schlüssel prüfen und erneut senden.",
+    needKey: "API-Key einfügen, um zu senden.",
+    keyPh: "API-Key",
+    clear: "Neu",
   },
   auth: {
     signinTitle: "Anmelden",

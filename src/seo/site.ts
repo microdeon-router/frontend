@@ -50,7 +50,7 @@ export type SeoPage = {
   alternates: { hreflang: string; href: string }[];
 };
 
-export type HeadLink = { rel: "canonical" | "alternate"; href: string; hreflang?: string };
+export type HeadLink = { rel: "canonical" | "alternate" | "describedby"; href: string; hreflang?: string };
 export type HeadMeta = { attr: "name" | "property"; key: string; content: string };
 
 export function siteOrigin() {
@@ -202,6 +202,7 @@ export function headExtras(seo: SeoPage): { links: HeadLink[]; metas: HeadMeta[]
   const image = `${origin}/brand/microdeon/mark.png`;
   const links: HeadLink[] = [
     { rel: "canonical", href: seo.canonical },
+    { rel: "describedby", href: `${origin}/llms.txt` },
     ...seo.alternates.map((item) => ({ rel: "alternate" as const, href: item.href, hreflang: item.hreflang })),
   ];
   const metas: HeadMeta[] = [

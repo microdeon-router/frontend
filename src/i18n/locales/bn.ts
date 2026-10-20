@@ -139,7 +139,7 @@ export const bn: Messages = {
   },
   dash: {
     title: "কনসোল",
-    lead: "API চাবি, ব্যবহার ও ক্রেডিট।",
+    lead: "মডেল বেছে নিন, লিখুন, পাঠান।",
     concept: "কনসোল",
     balance: "ব্যালেন্স",
     month: "এই মাস",
@@ -155,6 +155,14 @@ export const bn: Messages = {
     scope: "স্কোপ",
     created: "তৈরি",
     revoke: "বাতিল",
+    prompt: "এখানে লিখুন",
+    send: "পাঠান",
+    empty: "মডেল এই জানালায় উত্তর দেয়।",
+    working: "মডেলের উত্তর আসছে…",
+    failed: "কোনো উত্তর নেই। চাবি দেখে আবার চেষ্টা করুন।",
+    needKey: "পাঠাতে API চাবি বসান।",
+    keyPh: "API চাবি",
+    clear: "নতুন",
   },
   auth: {
     signinTitle: "প্রবেশ",

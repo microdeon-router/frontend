@@ -139,7 +139,7 @@ export const hi: Messages = {
   },
   dash: {
     title: "कंसोल",
-    lead: "API कुंजियाँ, उपयोग और क्रेडिट।",
+    lead: "मॉडल चुनें, लिखें, भेजें।",
     concept: "कंसोल",
     balance: "शेष",
     month: "यह महीना",
@@ -155,6 +155,14 @@ export const hi: Messages = {
     scope: "स्कोप",
     created: "बनाई गई",
     revoke: "रद्द करें",
+    prompt: "यहाँ लिखें",
+    send: "भेजें",
+    empty: "मॉडल इसी विंडो में जवाब देता है।",
+    working: "मॉडल का जवाब आ रहा है…",
+    failed: "कोई जवाब नहीं। कुंजी जाँचें, फिर फिर कोशिश करें।",
+    needKey: "भेजने के लिए API कुंजी चिपकाएँ।",
+    keyPh: "API कुंजी",
+    clear: "नया",
   },
   auth: {
     signinTitle: "प्रवेश",

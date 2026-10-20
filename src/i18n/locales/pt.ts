@@ -139,7 +139,7 @@ export const pt: Messages = {
   },
   dash: {
     title: "Console",
-    lead: "Chaves de API, uso e créditos.",
+    lead: "Escolhe um modelo, escreve, envia.",
     concept: "Console",
     balance: "Saldo",
     month: "Mês atual",
@@ -155,6 +155,14 @@ export const pt: Messages = {
     scope: "Escopos",
     created: "Criada",
     revoke: "Revogar",
+    prompt: "Escreve aqui",
+    send: "Enviar",
+    empty: "O modelo responde nesta janela.",
+    working: "À espera do modelo…",
+    failed: "Sem resposta. Confere a chave e tenta de novo.",
+    needKey: "Cola a chave API para enviar.",
+    keyPh: "Chave API",
+    clear: "Novo",
   },
   auth: {
     signinTitle: "Entrar",

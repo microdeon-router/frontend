@@ -139,7 +139,7 @@ export const ja: Messages = {
   },
   dash: {
     title: "コンソール",
-    lead: "APIキー、利用、クレジット。",
+    lead: "モデルを選んで、書いて、送る。",
     concept: "コンソール",
     balance: "残高",
     month: "今月",
@@ -155,6 +155,14 @@ export const ja: Messages = {
     scope: "スコープ",
     created: "作成",
     revoke: "失効",
+    prompt: "ここに書く",
+    send: "送信",
+    empty: "モデルはこの画面で返事します。",
+    working: "モデルの返事を待っています…",
+    failed: "返事がありません。キーを確認してもう一度。",
+    needKey: "送るには API キーを貼ってください。",
+    keyPh: "API キー",
+    clear: "新規",
   },
   auth: {
     signinTitle: "ログイン",

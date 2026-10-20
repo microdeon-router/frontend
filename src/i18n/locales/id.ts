@@ -139,7 +139,7 @@ export const id: Messages = {
   },
   dash: {
     title: "Konsol",
-    lead: "Kunci API, pemakaian, dan kredit.",
+    lead: "Pilih model, tulis, kirim.",
     concept: "Konsol",
     balance: "Saldo",
     month: "Bulan ini",
@@ -155,6 +155,14 @@ export const id: Messages = {
     scope: "Cakupan",
     created: "Dibuat",
     revoke: "Cabut",
+    prompt: "Tulis di sini",
+    send: "Kirim",
+    empty: "Model menjawab di jendela ini.",
+    working: "Menunggu model…",
+    failed: "Tidak ada balasan. Periksa kunci, lalu coba lagi.",
+    needKey: "Tempel kunci API untuk mengirim.",
+    keyPh: "Kunci API",
+    clear: "Baru",
   },
   auth: {
     signinTitle: "Masuk",

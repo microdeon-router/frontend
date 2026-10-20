@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { buildRobots, buildSitemap, indexablePaths, renderHtml } from "./src/seo/render";
+import { buildLlmsTxt, buildRobots, buildSitemap, indexablePaths, renderHtml } from "./src/seo/render";
 
 function microdeonSeo(): Plugin {
   const serveSeo = (req: { url?: string }, res: { setHeader: (k: string, v: string) => void; end: (body: string) => void }, next: () => void) => {
@@ -17,6 +17,11 @@ function microdeonSeo(): Plugin {
     if (url === "/robots.txt") {
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.end(buildRobots());
+      return;
+    }
+    if (url === "/llms.txt" || url === "/llm.txt") {
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.end(buildLlmsTxt());
       return;
     }
     next();
@@ -44,6 +49,9 @@ function microdeonSeo(): Plugin {
       }
       fs.writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap());
       fs.writeFileSync(path.join(dir, "robots.txt"), buildRobots());
+      const llms = buildLlmsTxt();
+      fs.writeFileSync(path.join(dir, "llms.txt"), llms);
+      fs.writeFileSync(path.join(dir, "llm.txt"), llms);
     },
   };
 }

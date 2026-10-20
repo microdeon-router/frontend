@@ -139,7 +139,7 @@ export const zh: Messages = {
   },
   dash: {
     title: "控制台",
-    lead: "API 密钥、用量和额度。",
+    lead: "选模型，写一句，发送。",
     concept: "控制台",
     balance: "余额",
     month: "本月",
@@ -155,6 +155,14 @@ export const zh: Messages = {
     scope: "作用域",
     created: "创建于",
     revoke: "撤销",
+    prompt: "写在这里",
+    send: "发送",
+    empty: "模型会在这个窗口里回复。",
+    working: "正在等待模型…",
+    failed: "没有回复。检查密钥后再试。",
+    needKey: "粘贴 API 密钥后再发送。",
+    keyPh: "API 密钥",
+    clear: "新对话",
   },
   auth: {
     signinTitle: "登录",
