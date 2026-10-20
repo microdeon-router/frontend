@@ -3,6 +3,7 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import { auth } from "./auth";
 
 const port = Number(process.env.BETTER_AUTH_PORT ?? 3001);
+const host = process.env.BETTER_AUTH_HOST ?? "127.0.0.1";
 
 async function readBody(req: IncomingMessage): Promise<Buffer | undefined> {
   if (req.method === "GET" || req.method === "HEAD") return undefined;
@@ -63,6 +64,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(port, "127.0.0.1", () => {
-  console.log(`Better Auth listening on http://127.0.0.1:${port}`);
+server.listen(port, host, () => {
+  console.log(`Better Auth listening on http://${host}:${port}`);
 });

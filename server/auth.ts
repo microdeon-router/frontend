@@ -35,6 +35,7 @@ if (!secret || secret.length < 32) {
 }
 
 const baseURL = process.env.BETTER_AUTH_URL ?? "http://localhost:5173";
+const crossSite = baseURL.startsWith("https://");
 const trustedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -57,6 +58,13 @@ const options = {
   },
   emailAndPassword: { enabled: true },
   socialProviders: socialProviders(),
+  ...(crossSite
+    ? {
+        advanced: {
+          defaultCookieAttributes: { sameSite: "none" as const, secure: true },
+        },
+      }
+    : {}),
 } satisfies BetterAuthOptions;
 
 await (await getMigrations(options)).runMigrations();
