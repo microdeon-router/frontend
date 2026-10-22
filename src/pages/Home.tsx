@@ -16,7 +16,7 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="grid-infra pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto flex max-w-[1120px] flex-col items-center px-4 pb-10 pt-20 text-center sm:px-6 sm:pt-28">
-          <HeroTitle key={locale} title1={m.hero.title1} title2={m.hero.title2} />
+          <HeroTitle key={locale} title1={m.hero.title1} title2={m.hero.title2} strikeAfter={m.hero.strikeAfter} />
           <RouteSketch />
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
             <Button to={localePath(locale, "/signup")} className="px-5 py-2.5 text-[14.5px]">

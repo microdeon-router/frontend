@@ -17,6 +17,8 @@ export type Messages = {
     badge: string;
     title1: string;
     title2: string;
+    /** L’adjectif barré suit le nom (fr, es, pt, ar, id). */
+    strikeAfter: boolean;
     lead: string;
     cta: string;
     browse: string;
@@ -146,6 +148,30 @@ export type Messages = {
     needKey: string;
     keyPh: string;
     clear: string;
+    overview: string;
+    overviewLead: string;
+    catalogNav: string;
+    catalogLead: string;
+    sessions: string;
+    sessionsLead: string;
+    billingNav: string;
+    billingLead: string;
+    settings: string;
+    settingsLead: string;
+    reserve: string;
+    reserved: string;
+    stop: string;
+    running: string;
+    stopped: string;
+    noSessions: string;
+    activity: string;
+    profile: string;
+    org: string;
+    personal: string;
+    members: string;
+    security: string;
+    securityBody: string;
+    keysLead: string;
   };
   auth: {
     signinTitle: string;

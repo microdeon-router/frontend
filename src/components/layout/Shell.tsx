@@ -26,17 +26,19 @@ function ScrollOnNavigate() {
 
 export default function Shell() {
   const { locale } = useParams();
+  const { pathname } = useLocation();
+  const inConsole = pathname.split("/").includes("dashboard");
   if (!isLocale(locale)) return <Navigate to="/fr" replace />;
   return (
     <I18nProvider>
       <DocumentMeta />
       <ScrollOnNavigate />
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
+      <div className={inConsole ? "min-h-dvh" : "flex min-h-screen flex-col"}>
+        {inConsole ? null : <Header />}
+        <main className={inConsole ? "min-h-dvh" : "flex-1"}>
           <Outlet />
         </main>
-        <Footer />
+        {inConsole ? null : <Footer />}
       </div>
     </I18nProvider>
   );

@@ -33,12 +33,20 @@ function Caret() {
   );
 }
 
-export default function HeroTitle({ title1, title2 }: { title1: string; title2: string }) {
+export default function HeroTitle({
+  title1,
+  title2,
+  strikeAfter,
+}: {
+  title1: string;
+  title2: string;
+  strikeAfter: boolean;
+}) {
   const reduced = useReducedMotion() ?? false;
   const [phase, setPhase] = useState<Phase>(reduced ? "type-title" : "type-refusal");
   const refusal = useTyped(REFUSAL, phase === "type-refusal", 26, reduced);
-  const restricted = useTyped(title2, phase === "type-title", 26, reduced);
-  const headline = useTyped(title1, phase === "type-title" && restricted.done, 22, reduced);
+  const lead = useTyped(strikeAfter ? title1 : title2, phase === "type-title", strikeAfter ? 22 : 26, reduced);
+  const tail = useTyped(strikeAfter ? title2 : title1, phase === "type-title" && lead.done, strikeAfter ? 26 : 22, reduced);
 
   useEffect(() => {
     if (reduced) return;
@@ -53,12 +61,22 @@ export default function HeroTitle({ title1, title2 }: { title1: string; title2: 
   }, [phase, reduced, refusal.done]);
 
   const showTitle = phase === "type-title";
-  const showStrike = reduced || restricted.done;
+  const struck = strikeAfter ? tail : lead;
+  const plain = strikeAfter ? lead : tail;
+  const showStrike = reduced || struck.done;
 
   return (
     <h1 className="relative flex min-h-[6.8rem] w-full max-w-[22rem] items-center justify-center text-center sm:min-h-[8.2rem] sm:max-w-[36rem]">
       <span className="sr-only">
-        <s>{title2}</s> {title1}
+        {strikeAfter ? (
+          <>
+            {title1} <s>{title2}</s>
+          </>
+        ) : (
+          <>
+            <s>{title2}</s> {title1}
+          </>
+        )}
       </span>
       <AnimatePresence mode="wait" initial={false}>
         {!showTitle ? (
@@ -92,8 +110,14 @@ export default function HeroTitle({ title1, title2 }: { title1: string; title2: 
             transition={{ duration: 0.35, ease }}
             className="max-w-[18ch] text-[clamp(2.2rem,5.6vw,3.7rem)] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:max-w-[22ch]"
           >
+            {strikeAfter ? (
+              <>
+                {plain.value}
+                {plain.done ? " " : null}
+              </>
+            ) : null}
             <span className="relative inline-block whitespace-nowrap text-signal">
-              {restricted.value}
+              {struck.value}
               {showStrike ? (
                 <motion.span
                   className="pointer-events-none absolute inset-x-0 top-[0.52em] h-[0.09em] origin-start bg-signal"
@@ -103,9 +127,9 @@ export default function HeroTitle({ title1, title2 }: { title1: string; title2: 
                 />
               ) : null}
             </span>
-            {restricted.done ? " " : null}
-            {headline.value}
-            {!headline.done ? <Caret /> : null}
+            {strikeAfter ? null : struck.done ? " " : null}
+            {strikeAfter ? null : plain.value}
+            {!(strikeAfter ? tail.done : plain.done) ? <Caret /> : null}
           </motion.span>
         )}
       </AnimatePresence>
